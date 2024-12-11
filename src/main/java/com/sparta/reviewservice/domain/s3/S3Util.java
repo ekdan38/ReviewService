@@ -23,7 +23,6 @@ public abstract class S3Util {
         if(image.isEmpty() || image.getOriginalFilename().isBlank()){
             log.error("이미지 파일이 비어있습니다. {}", image);
             throw new IllegalArgumentException("이미지 파일이 비어있습니다.");
-
         }
     }
 
@@ -45,12 +44,8 @@ public abstract class S3Util {
 
     // 서버에 같은 이름으로 이미지 저장되는거 막기위해서 서버에 저장될 이름을 따로 만들자.
     protected String generateServerFileName(String originalFileName){
-        String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1)
-                .toLowerCase();
-
         String randomName = UUID.randomUUID().toString();
-
-        return randomName + "." + extension;
+        return randomName + "." + getExtension(originalFileName);
     }
 
     public String getFileNameForUrl(String imageUrl){
@@ -59,6 +54,9 @@ public abstract class S3Util {
         return imageUrl.substring(pos + 1);
     }
 
+    public String getExtension(String imageName){
+        return imageName.substring(imageName.lastIndexOf(".") + 1).toLowerCase();
+    }
 
     // 추상 메서드로 더미 구현체 만들자
     public abstract String uploadImage(MultipartFile image);
