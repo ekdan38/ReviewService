@@ -26,22 +26,25 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    private String imageUrl;
+
     private String originalFileName;
 
     private String s3FileName;
 
     private String extension;
 
-    private Review(Product product, ReviewRequestDto reviewRequestDto, String originalFileName, String s3FileName, String extension) {
+    private Review(Product product, ReviewRequestDto reviewRequestDto, String imageUrl, String originalFileName, String s3FileName, String extension) {
         this.product = product;
         this.userId = reviewRequestDto.getUserId();
         this.score = reviewRequestDto.getScore();
         this.content = reviewRequestDto.getContent();
+        this.imageUrl = imageUrl;
         this.originalFileName = originalFileName;
         this.s3FileName = s3FileName;
         this.extension = extension;
     }
-    public static Review createReview(Product product, ReviewRequestDto reviewRequestDto, String originalFileName, String s3FileName, String extension){
-        return new Review(product, reviewRequestDto, originalFileName, s3FileName, extension);
+    public static Review createReview(Product product, ReviewRequestDto reviewRequestDto, String imageUrl, String originalFileName, String s3FileName, String extension){
+        return new Review(product, reviewRequestDto, imageUrl, originalFileName, s3FileName, extension);
     }
 }
