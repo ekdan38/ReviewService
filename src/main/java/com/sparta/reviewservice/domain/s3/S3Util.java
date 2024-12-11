@@ -53,6 +53,13 @@ public abstract class S3Util {
         return randomName + "." + extension;
     }
 
+    public String getFileNameForUrl(String imageUrl){
+        //"https://reviewservice.s3.ap-northeast-2.amazonaws.com/" + S3FileName
+        int pos = imageUrl.lastIndexOf("/");
+        return imageUrl.substring(pos + 1);
+    }
+
+
     // 추상 메서드로 더미 구현체 만들자
     public abstract String uploadImage(MultipartFile image);
 }
