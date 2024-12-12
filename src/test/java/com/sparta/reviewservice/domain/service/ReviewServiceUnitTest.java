@@ -3,6 +3,8 @@ package com.sparta.reviewservice.domain.service;
 import com.sparta.reviewservice.domain.dto.ReviewRequestDto;
 import com.sparta.reviewservice.domain.entity.Product;
 import com.sparta.reviewservice.domain.entity.Review;
+import com.sparta.reviewservice.domain.exception.ProductException;
+import com.sparta.reviewservice.domain.exception.ReviewException;
 import com.sparta.reviewservice.domain.repository.ProductRepository;
 import com.sparta.reviewservice.domain.repository.ReviewRepository;
 import com.sparta.reviewservice.domain.s3.S3Util;
@@ -118,7 +120,7 @@ class ReviewServiceUnitTest {
 
         // when && then
         Assertions.assertThatThrownBy(() -> reviewService.createReview(productId, reviewRequestDto, mockImage))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ProductException.class);
 
     }
 
@@ -142,7 +144,7 @@ class ReviewServiceUnitTest {
 
         // when && then
         Assertions.assertThatThrownBy(() -> reviewService.createReview(productId, reviewRequestDto, mockImage))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ReviewException.class);
 
     }
 
