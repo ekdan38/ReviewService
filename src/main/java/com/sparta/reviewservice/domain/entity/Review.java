@@ -4,12 +4,14 @@ import com.sparta.reviewservice.domain.dto.ReviewRequestDto;
 import com.sparta.reviewservice.domain.entity.base.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review extends BaseTimeEntity {
 
+    @Getter
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -17,15 +19,19 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Getter
     @Column(nullable = false)
     private Long userId;
 
+    @Getter
     @Column(nullable = false)
     private Integer score;
 
+    @Getter
     @Column(nullable = false)
     private String content;
 
+    @Getter
     private String imageUrl;
 
     private String originalFileName;

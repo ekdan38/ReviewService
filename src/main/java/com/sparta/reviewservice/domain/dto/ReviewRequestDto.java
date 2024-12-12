@@ -18,4 +18,10 @@ public class ReviewRequestDto {
 
     @NotNull
     private String content;
+
+    public ReviewRequestDto(Long userId, Integer score, String content) {
+        this.userId = userId;
+        this.score = score;
+        this.content = content;
+    }
 }
