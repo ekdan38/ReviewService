@@ -35,7 +35,7 @@ public class Review extends BaseTimeEntity {
     private String extension;
 
     private Review(Product product, ReviewRequestDto reviewRequestDto, String imageUrl, String originalFileName, String s3FileName, String extension) {
-        this.product = product;
+        setProduct(product);
         this.userId = reviewRequestDto.getUserId();
         this.score = reviewRequestDto.getScore();
         this.content = reviewRequestDto.getContent();
@@ -43,8 +43,16 @@ public class Review extends BaseTimeEntity {
         this.originalFileName = originalFileName;
         this.s3FileName = s3FileName;
         this.extension = extension;
+
+        this.product.updateScoreAndCount(this.score);
     }
     public static Review createReview(Product product, ReviewRequestDto reviewRequestDto, String imageUrl, String originalFileName, String s3FileName, String extension){
         return new Review(product, reviewRequestDto, imageUrl, originalFileName, s3FileName, extension);
+    }
+
+    // 연관 관계 메서드
+    private void setProduct(Product product){
+        this.product = product;
+        product.getReviews().add(this);
     }
 }

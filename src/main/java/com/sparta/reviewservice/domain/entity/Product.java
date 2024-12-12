@@ -35,4 +35,9 @@ public class Product extends BaseTimeEntity {
     public static Product createProduct(){
         return new Product(0L, 0.0);
     }
+
+    public void updateScoreAndCount(int score){
+        this.reviewCount++;
+        this.score = (score + this.score * (this.reviewCount - 1)) / this.reviewCount;
+    }
 }
