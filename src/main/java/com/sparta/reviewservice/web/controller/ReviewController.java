@@ -2,7 +2,6 @@ package com.sparta.reviewservice.web.controller;
 
 import com.sparta.reviewservice.domain.dto.ReviewRequestDto;
 import com.sparta.reviewservice.domain.dto.ReviewsResponseDto;
-import com.sparta.reviewservice.domain.entity.Review;
 import com.sparta.reviewservice.domain.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @Slf4j(topic = "[ReviewController]")
