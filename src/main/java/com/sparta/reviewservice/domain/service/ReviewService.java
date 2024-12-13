@@ -38,7 +38,7 @@ public class ReviewService {
     @Transactional
     public Review createReview(Long productId, ReviewRequestDto reviewRequestDto, MultipartFile image) {
         // DB에서 Product 확인
-        Product product = productRepository.findById(productId)
+        Product product = productRepository.findByIdWithLock(productId)
                 .orElseThrow(() -> new ProductException(ErrorCode.PRODUCT_NOT_FOUND));
 
         // 유저가 해당 상품에 리뷰를 작성했었는지 확인
