@@ -1,5 +1,6 @@
 package com.sparta.reviewservice.domain.s3;
 
+import com.sparta.reviewservice.domain.exception.S3Exception;
 import com.sparta.reviewservice.domain.s3.DummyS3Util;
 import com.sparta.reviewservice.domain.s3.S3Util;
 import org.junit.jupiter.api.DisplayName;
@@ -114,13 +115,13 @@ class DummyS3UtilUnitTest {
 
         //when && then
         assertThatThrownBy(() -> s3Util.uploadImage(image1))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(S3Exception.class);
 
         assertThatThrownBy(() -> s3Util.uploadImage(image2))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(S3Exception.class);
 
         assertThatThrownBy(() -> s3Util.uploadImage(image3))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(S3Exception.class);
     }
 
 
