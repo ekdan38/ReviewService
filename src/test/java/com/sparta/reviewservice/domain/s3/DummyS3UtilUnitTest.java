@@ -25,7 +25,7 @@ class DummyS3UtilUnitTest {
                 new byte[]{0, 0, 0, 0});
 
         //when && then
-        assertThatThrownBy(() -> s3Util.validateFile(image)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> s3Util.validateFile(image)).isInstanceOf(S3Exception.class);
     }
 
 
@@ -38,13 +38,13 @@ class DummyS3UtilUnitTest {
         String image3 = "testImage.gif";
         //when && then
         assertThatThrownBy(() -> s3Util.validateExtension(image1))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(S3Exception.class);
 
         assertThatThrownBy(() -> s3Util.validateExtension(image2))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(S3Exception.class);
 
         assertThatThrownBy(() -> s3Util.validateExtension(image3))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(S3Exception.class);
     }
 
 
