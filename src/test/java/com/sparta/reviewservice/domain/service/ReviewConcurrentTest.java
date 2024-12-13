@@ -5,17 +5,18 @@ import com.sparta.reviewservice.domain.entity.Product;
 import com.sparta.reviewservice.domain.entity.Review;
 import com.sparta.reviewservice.domain.repository.ProductRepository;
 import com.sparta.reviewservice.domain.repository.ReviewRepository;
-import jakarta.persistence.EntityManager;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class ReviewConcurrentTest {
@@ -53,9 +54,9 @@ public class ReviewConcurrentTest {
                     System.out.println("review.getUserId() = " + review.getUserId());
 
                 } catch (Exception e) {
-                    System.out.println("실패: " + Thread.currentThread().getName() + " - " + e.getMessage());
+                    System.out.println("실패: " + Thread.currentThread().getName() + " : " + e.getMessage());
                 } finally {
-                    System.out.println("스레드 종료.getName() = " + Thread.currentThread().getName());
+                    System.out.println("스레드 종료 = " + Thread.currentThread().getName());
                     latch.countDown();
                 }
             });
@@ -66,8 +67,10 @@ public class ReviewConcurrentTest {
 
         //then
         Long reviewCount = productRepository.findById(productId).get().getReviewCount();
-        Assertions.assertThat(reviewCount).isEqualTo(threadCount);
-        System.out.println("reviewCount = " + reviewCount);
+        List<Review> reviews = reviewRepository.findAll();
+
+        assertThat(reviewCount).isEqualTo(threadCount);
+        assertThat(reviews.size()).isEqualTo(threadCount);
     }
 
 
@@ -83,6 +86,6 @@ public class ReviewConcurrentTest {
         reviewService.createReview(productId, reviewRequestDto, null);
 
         Long reviewCount = productRepository.findById(productId).get().getReviewCount();
-        Assertions.assertThat(reviewCount).isEqualTo(1);
+        assertThat(reviewCount).isEqualTo(1);
     }
 }
