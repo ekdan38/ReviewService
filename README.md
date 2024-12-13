@@ -62,3 +62,4 @@ Mysql : 3306
 ### 8. 테스트 코드 작성
 <p> 1. controller, service, repository, s3에 대한 단위 테스트 작성 </p>
 <p> 2. 통합 테스트 작정 </p>
+<p> 3. 테스트시 H2 사용</p>
