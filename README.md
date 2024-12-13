@@ -6,8 +6,8 @@ Mysql <br>
 H2
 
 ### docker-compose 기반 인프라 설정
-SpringBoot prot : 8080 <Br>
-Mysql : 3306 
+SpringBoot port : 8080 <Br>
+Mysql prot : 3306 
 
 ## 요구 사항 처리
 ### 1. 리뷰는 존재하는 상품에만 작성 가능
