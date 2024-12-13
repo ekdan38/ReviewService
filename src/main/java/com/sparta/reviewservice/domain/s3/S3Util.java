@@ -1,5 +1,7 @@
 package com.sparta.reviewservice.domain.s3;
 
+import com.sparta.reviewservice.domain.exception.S3Exception;
+import com.sparta.reviewservice.domain.exception.errorcode.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +24,7 @@ public abstract class S3Util {
         // MultipartFile은 파일 이름 없으면 빈 문자열 반환
         if(image.isEmpty() || image.getOriginalFilename().isBlank()){
             log.error("이미지 파일이 비어있습니다. {}", image);
-            throw new IllegalArgumentException("이미지 파일이 비어있습니다.");
+            throw new S3Exception(ErrorCode.S3_EMPTY_FILE);
         }
     }
 
@@ -31,14 +33,14 @@ public abstract class S3Util {
         int pos = originalFileName.lastIndexOf(".");
         if(pos == -1) {
             log.error("확장자가 없습니다. {}", originalFileName);
-            throw new IllegalArgumentException("확장자가 없습니다.");
+            throw new S3Exception(ErrorCode.S3_NO_EXTENSION);
         }
 
         String extension = originalFileName.substring(pos + 1).toLowerCase();
         List<String> allowedExtensionList = Arrays.asList("jpg", "jpeg", "png", "webp");
         if(!allowedExtensionList.contains(extension))  {
             log.error("지원하지 않는 확장자입니다. {}", extension);
-            throw new IllegalArgumentException("지원하지 않는 확장자입니다.");
+            throw new S3Exception(ErrorCode.S3_NOT_SUPPORT_EXTENSION);
         }
     }
 

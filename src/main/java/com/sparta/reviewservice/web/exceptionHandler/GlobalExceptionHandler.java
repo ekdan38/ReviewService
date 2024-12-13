@@ -3,6 +3,7 @@ package com.sparta.reviewservice.web.exceptionHandler;
 import com.sparta.reviewservice.domain.entity.Review;
 import com.sparta.reviewservice.domain.exception.ProductException;
 import com.sparta.reviewservice.domain.exception.ReviewException;
+import com.sparta.reviewservice.domain.exception.S3Exception;
 import com.sparta.reviewservice.domain.exception.dto.ExceptionResponseDto;
 import com.sparta.reviewservice.domain.exception.errorcode.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ReviewException.class)
     public ResponseEntity<ExceptionResponseDto> reviewException (ReviewException e){
         log.error("ReviewException = {}", e.getMessage());
+        return createExceptionResponseEntity(e.getErrorCode());
+    }
+
+    @ExceptionHandler(S3Exception.class)
+    public ResponseEntity<ExceptionResponseDto> S3Exception (S3Exception e){
+        log.error("S3Exception = {}", e.getMessage());
         return createExceptionResponseEntity(e.getErrorCode());
     }
 
